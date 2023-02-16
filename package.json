@@ -1,0 +1,42 @@
+{
+  "name": "boilerplate-microservice",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "",
+  "author": "Gustavo Adolfo Olmedo",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint \"./**/*.js\"",
+    "test": "node_modules/.bin/jest --coverage --forceExit --detectOpenHandles",
+    "start": "yarn migrate && node app.js | bunyan --color",
+    "start-dev": "yarn migrate && nodemon app.js  | bunyan --color",
+    "pretty-quick": "pretty-quick",
+    "migrate": "npx sequelize db:migrate"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.2.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.2.5",
+    "jest": "^24.1.0"
+  },
+  "dependencies": {
+    "apollo-datasource-rest": "^0.9.2",
+    "apollo-server-express": "^2.14.3",
+    "bunyan": "^1.8.12",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-winston": "^4.0.3",
+    "graphql": "^15.1.0",
+    "joi": "^14.3.1",
+    "lodash": "^4.17.15",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.12",
+    "sequelize-cli": "^5.5.1",
+    "winston": "^3.2.1"
+  }
+}

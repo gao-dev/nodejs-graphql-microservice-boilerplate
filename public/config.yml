@@ -1,0 +1,78 @@
+# Mandatory Consumer
+consumers:
+- acls: []
+  credentials: []
+  custom_id: "0"
+  username: anonymous
+apis:
+
+- attributes:
+    methods:
+    - OPTIONS
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    upstream_url: http://$upstream_host/api/v1
+    uris:
+    - /feature-name/api/v1
+  name: feature-name
+  plugins:
+  - attributes:
+      config:
+        anonymous_username: anonymous
+        key_names: apikey
+        run_on_preflight: true
+        hide_credentials: false
+      enabled: true
+    name: key-auth
+  - attributes:
+      config:
+        anonymous_username: anonymous
+        key_claim_name: iss
+        run_on_preflight: true
+        secret_is_base64: false
+        uri_param_names:
+        - jwt
+      enabled: true
+    name: jwt
+  - attributes:
+      config:
+        client_id: $client_id
+        client_secret: $client_secret
+        discovery: $discovery_url
+        introspection_endpoint: $introspection_url
+        response_type: token
+        scope: openid email profile
+        ssl_verify: "no"
+        token_endpoint_auth_method: client_secret_basic
+      enabled: true
+    name: oidc
+  - attributes:
+      config:
+        uri_param_names:
+        - jwt
+      enabled: true
+    name: jwt-claim-headers
+
+# Health check/Ping (Unauthenticated)
+- attributes:
+    methods:
+    - OPTIONS
+    - GET
+    upstream_url: http://$upstream_host/health
+    uris:
+    - /feature-name/health
+  name: feature-name.health
+  plugins: []
+
+- attributes:
+    methods:
+    - OPTIONS
+    - GET
+    upstream_url: http://$upstream_host/ping
+    uris:
+    - /feature-name/ping
+  name: feature-name.ping
+  plugins: []
